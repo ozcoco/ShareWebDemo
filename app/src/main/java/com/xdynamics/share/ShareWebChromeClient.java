@@ -41,6 +41,7 @@ public class ShareWebChromeClient extends WebChromeClient {
 
     }
 
+
     @Override
     public void onReceivedTitle(WebView view, String title) {
         super.onReceivedTitle(view, title);
@@ -162,10 +163,22 @@ public class ShareWebChromeClient extends WebChromeClient {
 
         Logger.d(fileChooserParams.createIntent());
 
-//        filePathCallback.onReceiveValue();
 
-        return true;
-//        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        if (fileChooserParams.getAcceptTypes()[0].contains("image")) {
+
+            filePathCallback.onReceiveValue(ShareManager.getInstance().getImages());
+
+            return true;
+        }
+
+        if (fileChooserParams.getAcceptTypes()[0].contains("video")) {
+
+            filePathCallback.onReceiveValue(ShareManager.getInstance().getVideos());
+
+            return true;
+        }
+
+        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
     }
 
 

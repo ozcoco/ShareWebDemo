@@ -1,5 +1,7 @@
 package com.xdynamics.share;
 
+import android.net.Uri;
+
 import com.xdynamics.share.platform.PlatformType;
 import com.xdynamics.share.platform.SharePlatform;
 
@@ -25,6 +27,26 @@ public class ShareManager implements IShareManager {
     @Override
     public SharePlatform platform() {
         return Singleton.INSTANCE.platform();
+    }
+
+    @Override
+    public void setImages(Uri[] uris) {
+        Singleton.INSTANCE.setImages(uris);
+    }
+
+    @Override
+    public void setVideos(Uri[] uris) {
+        Singleton.INSTANCE.setVideos(uris);
+    }
+
+    @Override
+    public Uri[] getImages() {
+        return Singleton.INSTANCE.getImages();
+    }
+
+    @Override
+    public Uri[] getVideos() {
+        return Singleton.INSTANCE.getVideos();
     }
 
     private final static class Singleton {

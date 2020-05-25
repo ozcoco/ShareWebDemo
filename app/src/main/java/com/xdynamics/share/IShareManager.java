@@ -1,5 +1,7 @@
 package com.xdynamics.share;
 
+import android.net.Uri;
+
 import com.xdynamics.share.platform.PlatformType;
 import com.xdynamics.share.platform.SharePlatform;
 
@@ -20,5 +22,13 @@ public interface IShareManager {
     void initPlatform(PlatformType type);
 
     SharePlatform platform();
+
+    void setImages(Uri[] uris);
+
+    void setVideos(Uri[] uris);
+
+    Uri[] getImages();
+
+    Uri[] getVideos();
 
 }

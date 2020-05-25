@@ -1,11 +1,17 @@
 package com.xdynamics.share;
 
+import android.net.Uri;
+
 import com.xdynamics.share.platform.Facebook;
 import com.xdynamics.share.platform.Instagram;
 import com.xdynamics.share.platform.PlatformType;
 import com.xdynamics.share.platform.SharePlatform;
 import com.xdynamics.share.platform.Twitter;
 import com.xdynamics.share.platform.Youtube;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @ProjectName: ShareWebDemo
@@ -22,6 +28,10 @@ import com.xdynamics.share.platform.Youtube;
 public class ShareManagerImpl implements IShareManager {
 
     private PlatformType mPlatformType;
+
+    private List<Uri> images;
+
+    private List<Uri> videos;
 
     @Override
     public void initPlatform(PlatformType type) {
@@ -49,5 +59,35 @@ public class ShareManagerImpl implements IShareManager {
         }
 
         return platform;
+    }
+
+    @Override
+    public void setImages(Uri[] uris) {
+
+        if (images == null)
+            images = new ArrayList<>();
+
+        images.addAll(Arrays.asList(uris));
+
+    }
+
+    @Override
+    public void setVideos(Uri[] uris) {
+
+        if (videos == null)
+            videos = new ArrayList<>();
+
+        videos.addAll(Arrays.asList(uris));
+    }
+
+    @Override
+    public Uri[] getImages() {
+
+        return (Uri[]) images.toArray();
+    }
+
+    @Override
+    public Uri[] getVideos() {
+        return (Uri[]) videos.toArray();
     }
 }

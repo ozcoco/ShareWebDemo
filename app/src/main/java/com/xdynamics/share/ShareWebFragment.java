@@ -98,9 +98,9 @@ public class ShareWebFragment extends Fragment {
         mWebView.setWebViewClient(platform.client());
 
         WebView.setWebContentsDebuggingEnabled(true);
-        WebView.enableSlowWholeDocumentDraw();
-        WebView.clearClientCertPreferences(() -> {
-        });
+//        WebView.enableSlowWholeDocumentDraw();
+//        WebView.clearClientCertPreferences(() -> {
+//        });
 
         mWebView.loadUrl(platform.index());
 

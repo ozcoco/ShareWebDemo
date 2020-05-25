@@ -2,9 +2,12 @@ package com.xdynamics.share;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.webkit.ClientCertRequest;
 import android.webkit.HttpAuthHandler;
 import android.webkit.RenderProcessGoneDetail;
@@ -161,9 +164,30 @@ public class ShareWebViewClient extends WebViewClient {
         Logger.d("onReceivedLoginRequest");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
         Logger.d("onRenderProcessGone");
+        if (!detail.didCrash()) {
+            // Renderer was killed because the system ran out of memory.
+            // The app can recover gracefully by creating a new WebView instance
+            // in the foreground.
+            Logger.e("System killed the WebView rendering process " +
+                    "to reclaim memory. Recreating...");
+
+            if (view != null) {
+                ViewGroup webViewContainer = (ViewGroup) view.getParent();
+                webViewContainer.removeView(view);
+                view.destroy();
+                view = null;
+            }
+
+            return true;
+        }
+
+
+        Logger.e("The WebView rendering process crashed!");
+
         return super.onRenderProcessGone(view, detail);
     }
 

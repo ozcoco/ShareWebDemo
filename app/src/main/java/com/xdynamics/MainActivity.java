@@ -1,7 +1,9 @@
 package com.xdynamics;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -11,7 +13,10 @@ import android.view.View;
 import com.xdynamics.share.R;
 import com.xdynamics.share.ShareManager;
 import com.xdynamics.share.ShareWebActivity;
+import com.xdynamics.share.p2p.P2pActivity;
 import com.xdynamics.share.platform.PlatformType;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,9 +38,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("SdCardPath")
+    Uri[] images = new Uri[]{
+            Uri.fromFile(new File("/sdcard/test.jpg")),
+            Uri.fromFile(new File("/sdcard/test2.jpg")),
+    };
+
+    @SuppressLint("SdCardPath")
+    Uri[] videos = new Uri[]{
+            Uri.fromFile(new File("/sdcard/v.mp4")),
+            Uri.fromFile(new File("/sdcard/vtest.mp4")),
+    };
+
     public void goFacebook(View view) {
 
         ShareManager.getInstance().initPlatform(PlatformType.FACEBOOK);
+
+        ShareManager.getInstance().setImages(images);
+        ShareManager.getInstance().setVideos(videos);
 
         ContextCompat.startActivity(this, new Intent(this, ShareWebActivity.class), null);
 
@@ -45,12 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
         ShareManager.getInstance().initPlatform(PlatformType.TWITTER);
 
+        ShareManager.getInstance().setImages(images);
+        ShareManager.getInstance().setVideos(videos);
+
         ContextCompat.startActivity(this, new Intent(this, ShareWebActivity.class), null);
     }
 
     public void goIns(View view) {
 
         ShareManager.getInstance().initPlatform(PlatformType.INSTAGRAM);
+
+        ShareManager.getInstance().setImages(images);
+        ShareManager.getInstance().setVideos(videos);
 
         ContextCompat.startActivity(this, new Intent(this, ShareWebActivity.class), null);
     }
@@ -59,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
         ShareManager.getInstance().initPlatform(PlatformType.YOUTUBE);
 
+        ShareManager.getInstance().setImages(images);
+        ShareManager.getInstance().setVideos(videos);
+
         ContextCompat.startActivity(this, new Intent(this, ShareWebActivity.class), null);
+    }
+
+    public void goP2P(View view) {
+
+        ContextCompat.startActivity(this, new Intent(this, P2pActivity.class), null);
     }
 }
