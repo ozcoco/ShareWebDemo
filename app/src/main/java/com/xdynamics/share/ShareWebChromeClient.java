@@ -11,7 +11,6 @@ import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.orhanobut.logger.Logger;
@@ -30,7 +29,7 @@ import java.util.Arrays;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class ShareWebChromeClient extends WebChromeClient {
+public class ShareWebChromeClient extends com.just.agentweb.WebChromeClient {
 
 
     @Override
@@ -94,12 +93,15 @@ public class ShareWebChromeClient extends WebChromeClient {
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
         Logger.d("----onJsAlert----> url: %s \n message: %s", url, message);
 
+        result.confirm();
+
         return super.onJsAlert(view, url, message, result);
     }
 
     @Override
     public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
         Logger.d("onJsConfirm");
+        result.confirm();
         return true;
 //        return super.onJsConfirm(view, url, message, result);
     }
@@ -144,7 +146,7 @@ public class ShareWebChromeClient extends WebChromeClient {
     public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
 
 
-        Logger.d("onConsoleMessage");
+        Logger.d("onConsoleMessage\n -------> message: %s ", consoleMessage.message());
 
         return super.onConsoleMessage(consoleMessage);
     }

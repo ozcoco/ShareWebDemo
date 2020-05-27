@@ -2,9 +2,10 @@ package com.xdynamics.share;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 
-import com.xdynamics.share.R;
+import com.xdynamics.share.base.BaseActivity;
+import com.xdynamics.share.base.IOnKeyDown;
 
 
 /**
@@ -19,8 +20,10 @@ import com.xdynamics.share.R;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class ShareWebActivity extends AppCompatActivity {
+public class ShareWebActivity extends BaseActivity {
 
+
+    IOnKeyDown mOnKeyDown;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,7 +32,20 @@ public class ShareWebActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_share_web);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, new ShareWebFragment()).commitNow();
+        ShareAgentWebFragment fragment = new ShareAgentWebFragment();
 
+        mOnKeyDown = fragment;
+
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commitNow();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (mOnKeyDown.onKeyDown(keyCode, event))
+            return true;
+
+        return super.onKeyDown(keyCode, event);
     }
 }

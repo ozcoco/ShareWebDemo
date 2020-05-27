@@ -33,7 +33,7 @@ import com.orhanobut.logger.Logger;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class ShareWebViewClient extends WebViewClient {
+public class ShareWebViewClient extends com.just.agentweb.WebViewClient {
 
     private OnPageLoadingListener onPageLoadingListener;
 
@@ -101,13 +101,14 @@ public class ShareWebViewClient extends WebViewClient {
     @Override
     public void onPageCommitVisible(WebView view, String url) {
         super.onPageCommitVisible(view, url);
-        Logger.d("onPageCommitVisible");
+        Logger.d("onPageCommitVisible, \n url: %s", url);
     }
 
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
         super.onReceivedError(view, request, error);
-        Logger.d("onReceivedError");
+
+        Logger.d("onReceivedError, URL: %s \n ErrorCode: %d, \n Description: %s", request.getUrl().getPath(), error.getErrorCode(), error.getDescription());
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.xdynamics;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +19,10 @@ import com.xdynamics.share.platform.PlatformType;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
+
+    Uri[] images;
+
+    Uri[] videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +40,27 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION
         }, 101);
 
+
+        images = new Uri[]{
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "test.jpg")),
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "test2.jpg")),
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "DCIM/Camera/IMG_20200319_182802.jpg")),
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "DCIM/Camera/IMG_20200327_183350.jpg"))};
+
+        videos = new Uri[]{
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v.mkv")),
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v.mp4")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_10s.mp4")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_720.mov")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_480.mov")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_720.mp4")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_480.mp4")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_10s.mkv")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_10s.flv"))
+        };
+
     }
 
-    @SuppressLint("SdCardPath")
-    Uri[] images = new Uri[]{
-            Uri.fromFile(new File("/sdcard/test.jpg")),
-            Uri.fromFile(new File("/sdcard/test2.jpg")),
-    };
-
-    @SuppressLint("SdCardPath")
-    Uri[] videos = new Uri[]{
-            Uri.fromFile(new File("/sdcard/v.mp4")),
-            Uri.fromFile(new File("/sdcard/vtest.mp4")),
-    };
 
     public void goFacebook(View view) {
 

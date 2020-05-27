@@ -1,6 +1,7 @@
 package com.xdynamics.share;
 
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import com.xdynamics.share.platform.Facebook;
 import com.xdynamics.share.platform.Instagram;
@@ -82,12 +83,29 @@ public class ShareManagerImpl implements IShareManager {
 
     @Override
     public Uri[] getImages() {
+        if (images == null) return null;
 
-        return (Uri[]) images.toArray();
+        Uri[] uris = new Uri[images.size()];
+
+        for (int i = 0; i < uris.length; i++) {
+            uris[i] = images.get(i);
+        }
+
+        return uris;
     }
 
+    @Nullable
     @Override
     public Uri[] getVideos() {
-        return (Uri[]) videos.toArray();
+
+        if (videos == null) return null;
+
+        Uri[] uris = new Uri[videos.size()];
+
+        for (int i = 0; i < uris.length; i++) {
+            uris[i] = videos.get(i);
+        }
+
+        return uris;
     }
 }
