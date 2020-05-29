@@ -24,12 +24,17 @@ public class BaseServer extends NanoHTTPD implements IServer {
 
     public BaseServer(String hostname, int port) {
         super(hostname, port);
-    }
 
+    }
 
     @Override
     public void start() throws IOException {
         super.start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
+    }
+
+    @Override
+    public int getPort() {
+        return super.getListeningPort();
     }
 
 }

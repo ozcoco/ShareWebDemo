@@ -17,7 +17,7 @@ public interface ShareConfig {
     String INDEX_FACEBOOK = "https://www.facebook.com/";
 //    String INDEX_FACEBOOK = "https://m.facebook.com/";
 
-    String INDEX_TWITTER = "https://twitter.com/";
+    String INDEX_TWITTER = "https://mobile.twitter.com/compose/tweet";
 //    String INDEX_TWITTER = "https://mobile.twitter.com/";
 
     String INDEX_INSTAGRAM = "https://www.instagram.com/";

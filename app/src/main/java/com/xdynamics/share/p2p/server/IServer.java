@@ -23,4 +23,6 @@ public interface IServer {
     boolean isAlive();
 
     String getHostname();
+
+    int getPort();
 }

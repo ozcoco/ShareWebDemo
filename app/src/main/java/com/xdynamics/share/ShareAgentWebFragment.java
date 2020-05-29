@@ -94,11 +94,9 @@ public class ShareAgentWebFragment extends Fragment implements IOnKeyDown {
 
         mWebLayout = new WebLayout(Objects.requireNonNull(getContext())){
 
-            {
-
-                Objects.requireNonNull(getWebView()).getSettings().setUserAgentString("PC");
-
-            }
+//            {
+//                Objects.requireNonNull(getWebView()).getSettings().setUserAgentString("PC");
+//            }
         };
 
         mWebLayout.getLayout().setOnRefreshListener(() -> {

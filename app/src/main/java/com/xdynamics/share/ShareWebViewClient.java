@@ -50,9 +50,9 @@ public class ShareWebViewClient extends com.just.agentweb.WebViewClient {
 
         Logger.d("shouldOverrideUrlLoading");
 
-        view.loadUrl(request.getUrl().getPath());
+//        view.loadUrl(request.getUrl().getPath());
 
-        return true;
+        return super.shouldOverrideUrlLoading(view, request);
     }
 
     @Override
@@ -163,33 +163,6 @@ public class ShareWebViewClient extends com.just.agentweb.WebViewClient {
     public void onReceivedLoginRequest(WebView view, String realm, @Nullable String account, String args) {
         super.onReceivedLoginRequest(view, realm, account, args);
         Logger.d("onReceivedLoginRequest");
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
-        Logger.d("onRenderProcessGone");
-        if (!detail.didCrash()) {
-            // Renderer was killed because the system ran out of memory.
-            // The app can recover gracefully by creating a new WebView instance
-            // in the foreground.
-            Logger.e("System killed the WebView rendering process " +
-                    "to reclaim memory. Recreating...");
-
-            if (view != null) {
-                ViewGroup webViewContainer = (ViewGroup) view.getParent();
-                webViewContainer.removeView(view);
-                view.destroy();
-                view = null;
-            }
-
-            return true;
-        }
-
-
-        Logger.e("The WebView rendering process crashed!");
-
-        return super.onRenderProcessGone(view, detail);
     }
 
     @Override

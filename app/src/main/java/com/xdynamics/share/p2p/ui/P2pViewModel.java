@@ -4,49 +4,57 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
-import com.xdynamics.share.p2p.server.HttpServer;
-import com.xdynamics.share.p2p.server.IServer;
+import com.xdynamics.share.p2p.IServerManager;
+import com.xdynamics.share.p2p.ServerManager;
 
 import java.io.IOException;
 
 public class P2pViewModel extends AndroidViewModel {
 
-    public final int SERVER_PORT = 8080;
-
-    private IServer server;
+    private final IServerManager mServerManager;
 
     public P2pViewModel(@NonNull Application application) {
         super(application);
 
-        server = new HttpServer(SERVER_PORT);
+        mServerManager = ServerManager.getInstance();
+        mServerManager.init(application);
 
     }
 
     public void startServer() {
+
         try {
-            if (server != null && !server.isAlive())
-                server.start();
+
+            mServerManager.start();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void stopServer() {
-        if (server != null && server.isAlive())
-            server.stop();
+
+        mServerManager.stop();
+
     }
 
 
     public String getHostname() {
-        if (server != null && server.isAlive())
-            return server.getHostname();
-        return null;
+
+        return mServerManager.getHostname();
+    }
+
+    public int getPort() {
+
+        return mServerManager.getPort();
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        stopServer();
+
+        mServerManager.destroy();
 
     }
 }

@@ -1,0 +1,15 @@
+{
+  "image_dirs": [
+    "/sdcard/",
+    "/sdcard/SmartPilot/Camera/",
+    "/sdcard/DCIM/Camera/"
+  ],
+  "video_dirs": [
+    "/sdcard/",
+    "/sdcard/SmartPilot/Camera/",
+    "/sdcard/DCIM/Camera/"
+  ],
+  "static_dirs": [
+    "server/static"
+  ]
+}

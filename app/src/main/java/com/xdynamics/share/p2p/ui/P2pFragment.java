@@ -72,7 +72,7 @@ public class P2pFragment extends Fragment implements View.OnClickListener {
                     if (img_qr != null) {
                         try {
 
-                            String url = "http://" + NetworkUtils.getIpAddress() + ":" + mVm.SERVER_PORT;
+                            String url = "http://" + NetworkUtils.getIpAddress() + ":" + mVm.getPort();
 
                             Bitmap bmp = QrUtils.createQR(url, new Size(800, 800));
 

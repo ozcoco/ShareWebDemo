@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
 import com.xdynamics.share.R;
 import com.xdynamics.share.ShareManager;
 import com.xdynamics.share.ShareWebActivity;
@@ -17,6 +18,7 @@ import com.xdynamics.share.p2p.P2pActivity;
 import com.xdynamics.share.platform.PlatformType;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         images = new Uri[]{
-                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "test.jpg")),
-                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "test2.jpg")),
-                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "DCIM/Camera/IMG_20200319_182802.jpg")),
-                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "DCIM/Camera/IMG_20200327_183350.jpg"))};
+                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v.git")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v.mp4")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "test.jpg")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "test2.jpg")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "DCIM/Camera/IMG_20200319_182802.jpg")),
+//                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "DCIM/Camera/IMG_20200327_183350.jpg"))
+        };
 
         videos = new Uri[]{
 //                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v.mkv")),
@@ -58,6 +63,19 @@ public class MainActivity extends AppCompatActivity {
 //                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_10s.mkv")),
 //                Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath(), "v_10s.flv"))
         };
+
+
+        try {
+            String[] files = getAssets().list("server");
+
+            for (String str : files) {
+                Logger.d("----------》%s", str);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
