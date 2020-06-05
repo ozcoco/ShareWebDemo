@@ -3,8 +3,10 @@ package com.xdynamics.share.p2p.server;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
+import com.xdynamics.share.p2p.server.api.ApiGallery;
 import com.xdynamics.share.p2p.server.res.IResourceManager;
 import com.xdynamics.share.p2p.server.res.ResourceManager;
+import com.xdynamics.share.p2p.server.service.StationService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,8 @@ import java.io.InputStream;
 public class HttpServer extends BaseServer {
 
     private final IResourceManager mResource = ResourceManager.getInstance();
+
+    private ApiGallery mApi;
 
     public HttpServer(int port) {
         super(port);
@@ -55,6 +59,13 @@ public class HttpServer extends BaseServer {
         } else if (uri.startsWith("/video/")) {
 
             return video(uri.replaceFirst("/video/", ""));
+
+        } else if (uri.startsWith("/api/")) {
+
+            if (mApi == null) mApi = new ApiGallery(new StationService());
+
+            return mApi.api(session);
+
         } else {
 
             String[] split = uri.split("/");

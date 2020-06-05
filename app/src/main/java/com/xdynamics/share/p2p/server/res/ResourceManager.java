@@ -3,8 +3,11 @@ package com.xdynamics.share.p2p.server.res;
 import android.content.Context;
 
 import com.xdynamics.share.p2p.server.res.bean.IResourceFile;
+import com.xdynamics.share.p2p.server.res.bean.ImageFile;
+import com.xdynamics.share.p2p.server.res.bean.VideoFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @ProjectName: ShareWebDemo
@@ -66,6 +69,26 @@ public class ResourceManager implements IResourceManager {
     @Override
     public IResourceFile getStaticFile(String filename) {
         return Singleton.INSTANCE.getStaticFile(filename);
+    }
+
+    @Override
+    public List<ImageFile> getImageAll() {
+        return Singleton.INSTANCE.getImageAll();
+    }
+
+    @Override
+    public List<VideoFile> getVideoAll() {
+        return Singleton.INSTANCE.getVideoAll();
+    }
+
+    @Override
+    public List<ImageFile> getImageAll(int size, int index) {
+        return Singleton.INSTANCE.getImageAll(size, index);
+    }
+
+    @Override
+    public List<VideoFile> getVideoAll(int size, int index) {
+        return Singleton.INSTANCE.getVideoAll(size, index);
     }
 
     public static IResourceManager getInstance() {

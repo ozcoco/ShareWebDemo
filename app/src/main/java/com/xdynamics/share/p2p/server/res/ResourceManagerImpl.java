@@ -18,9 +18,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
 
 /**
  * @ProjectName: ShareWebDemo
@@ -38,9 +38,9 @@ public class ResourceManagerImpl implements IResourceManager {
 
     public final static String RESOURCE_CONFIG = "server/resource_config.json";
 
-    private final ArrayMap<String, IResourceFile> mImageMap = new ArrayMap<>();
-    private final ArrayMap<String, IResourceFile> mVideoMap = new ArrayMap<>();
-    private final ArrayMap<String, IResourceFile> mStaticMap = new ArrayMap<>();
+    private final ArrayMap<String, ImageFile> mImageMap = new ArrayMap<>();
+    private final ArrayMap<String, VideoFile> mVideoMap = new ArrayMap<>();
+    private final ArrayMap<String, HtmlFile> mStaticMap = new ArrayMap<>();
 
     private AssetManager mAssets;
 
@@ -258,6 +258,49 @@ public class ResourceManagerImpl implements IResourceManager {
     @Override
     public IResourceFile getStaticFile(String filename) {
         return mStaticMap.get(filename);
+    }
+
+    @Override
+    public List<ImageFile> getImageAll() {
+
+        return new ArrayList<>(mImageMap.values());
+    }
+
+    @Override
+    public List<VideoFile> getVideoAll() {
+        return new ArrayList<>(mVideoMap.values());
+    }
+
+    @Override
+    public List<ImageFile> getImageAll(int size, int index) {
+
+        List<ImageFile> list = getImageAll();
+
+        if (list.size() - 1 >= index + size) {
+            return list.subList(index, index + size);
+        } else {
+
+            if (list.size() <= index)
+                return list;
+            else
+                return list.subList(index, list.size() - 1);
+        }
+    }
+
+    @Override
+    public List<VideoFile> getVideoAll(int size, int index) {
+
+        List<VideoFile> list = getVideoAll();
+
+        if (list.size() - 1 >= index + size) {
+            return list.subList(index, index + size);
+        } else {
+
+            if (list.size() <= index)
+                return list;
+            else
+                return list.subList(index, list.size() - 1);
+        }
     }
 
 

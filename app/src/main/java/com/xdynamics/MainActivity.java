@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, new String[]{
                 Manifest.permission.INTERNET,
+                Manifest.permission.CHANGE_WIFI_STATE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.BLUETOOTH,
