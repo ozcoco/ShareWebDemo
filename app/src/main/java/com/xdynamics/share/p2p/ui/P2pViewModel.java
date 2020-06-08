@@ -2,59 +2,73 @@ package com.xdynamics.share.p2p.ui;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.os.RemoteException;
 import android.support.annotation.NonNull;
 
-import com.xdynamics.share.p2p.IServerManager;
-import com.xdynamics.share.p2p.ServerManager;
-
-import java.io.IOException;
+import com.xdynamics.App;
 
 public class P2pViewModel extends AndroidViewModel {
 
-    private final IServerManager mServerManager;
+    private final App app;
 
     public P2pViewModel(@NonNull Application application) {
         super(application);
 
-        mServerManager = ServerManager.getInstance();
-        mServerManager.init(application);
+        app = (App) application;
+
+        app.bindXShare();
 
     }
 
     public void startServer() {
 
         try {
-
-            mServerManager.start();
-
-        } catch (IOException e) {
+            if (app.getRemoteServerManager() != null)
+                app.getRemoteServerManager().startHttpServer();
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
 
     }
 
     public void stopServer() {
-
-        mServerManager.stop();
-
+        try {
+            if (app.getRemoteServerManager() != null)
+                app.getRemoteServerManager().stopHttpServer();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 
     public String getHostname() {
+        try {
+            if (app.getRemoteServerManager() != null)
+                return app.getRemoteServerManager().getHostname();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
-        return mServerManager.getHostname();
+        return null;
     }
 
     public int getPort() {
 
-        return mServerManager.getPort();
+        try {
+            if (app.getRemoteServerManager() != null)
+                return app.getRemoteServerManager().getPort();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
 
-        mServerManager.destroy();
+        app.unbindXShare();
 
     }
 }

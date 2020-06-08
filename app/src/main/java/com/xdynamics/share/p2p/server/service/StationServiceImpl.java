@@ -37,7 +37,12 @@ class StationServiceImpl implements IStationService {
     @Override
     public List<VideoFile> videoList(int size, int page) {
 
-
         return mResource.getVideoAll(size, size * page);
+    }
+
+
+    @Override
+    public int ok() {
+        return 1;
     }
 }

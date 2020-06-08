@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xdynamics.share">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,8 +22,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission
-        android:required="true"
-        android:name="android.permission.CHANGE_WIFI_STATE"/>
+        android:name="android.permission.CHANGE_WIFI_STATE"
+        android:required="true" />
 
     <application
         android:name="com.xdynamics.App"
@@ -31,7 +32,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="AllowBackup">
+
+        <service
+            android:name=".p2p.RemoteServerManagerService"
+            android:process="com.xdynamics.xShare" />
+
         <activity android:name=".p2p.P2pActivity" />
 
         <meta-data
@@ -50,8 +57,8 @@
         </activity>
         <activity
             android:name=".ShareWebActivity"
-            android:hardwareAccelerated="true"
             android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

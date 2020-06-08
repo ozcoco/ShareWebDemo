@@ -80,6 +80,12 @@ public class ApiGallery {
                     "application/json;charset=utf-8",
                     GsonUtils.toJson(Message.OK(mStationService.videoList(size, page))));
 
+        } else if (session.getUri().matches("/api/ok")) {
+
+            return NanoHTTPD.newFixedLengthResponse(
+                    NanoHTTPD.Response.Status.OK,
+                    "application/json;charset=utf-8",
+                    GsonUtils.toJson(Message.OK(mStationService.ok())));
         }
 
         return NanoHTTPD.newFixedLengthResponse(

@@ -23,4 +23,5 @@ public interface IStationService {
 
     List<VideoFile> videoList(int size, int page);
 
+    int ok();
 }

@@ -38,4 +38,11 @@ public class StationService implements IStationService {
     public List<VideoFile> videoList(int size, int page) {
         return stationService.videoList(size, page);
     }
+
+    @GET("/api/ok")
+    @Override
+    public int ok() {
+        return stationService.ok();
+    }
+
 }

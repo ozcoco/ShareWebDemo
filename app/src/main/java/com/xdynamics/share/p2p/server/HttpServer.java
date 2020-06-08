@@ -3,6 +3,7 @@ package com.xdynamics.share.p2p.server;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
+import com.xdynamics.share.p2p.server.annotation.API;
 import com.xdynamics.share.p2p.server.api.ApiGallery;
 import com.xdynamics.share.p2p.server.res.IResourceManager;
 import com.xdynamics.share.p2p.server.res.ResourceManager;
@@ -60,6 +61,14 @@ public class HttpServer extends BaseServer {
 
             return video(uri.replaceFirst("/video/", ""));
 
+        } else if (uri.startsWith("/download/img/")) {
+
+            return downloadImg(uri.replaceFirst("/download/img/", ""));
+
+        } else if (uri.startsWith("/download/video/")) {
+
+            return downloadVideo(uri.replaceFirst("/download/video/", ""));
+
         } else if (uri.startsWith("/api/")) {
 
             if (mApi == null) mApi = new ApiGallery(new StationService());
@@ -101,6 +110,8 @@ public class HttpServer extends BaseServer {
         return newFixedLengthResponse("Not Found!");
     }
 
+
+    @API("/img/")
     private Response img(String uri) {
 
         return newChunkedResponse(Response.Status.OK,
@@ -109,12 +120,53 @@ public class HttpServer extends BaseServer {
 
     }
 
+    @API("/video/")
     private Response video(String uri) {
 
         return newChunkedResponse(Response.Status.OK,
                 mResource.getVideoFile(uri).getMimeType(),
                 mResource.getVideo(uri));
     }
+
+    @API("/download/img/")
+    private Response downloadImg(String uri) {
+
+        InputStream is = mResource.getImage(uri);
+
+        int len = 0;
+
+        try {
+            len = is.available();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return newFixedLengthResponse(Response.Status.OK,
+                "application/octet-stream",
+                is,
+                len);
+
+    }
+
+    @API("/download/video/")
+    private Response downloadVideo(String uri) {
+
+        InputStream is = mResource.getVideo(uri);
+
+        int len = 0;
+
+        try {
+            len = is.available();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return newFixedLengthResponse(Response.Status.OK,
+                "application/octet-stream",
+                is,
+                len);
+    }
+
 
     private Response other(String uri) {
 
