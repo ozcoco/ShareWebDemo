@@ -114,57 +114,87 @@ public class HttpServer extends BaseServer {
     @API("/img/")
     private Response img(String uri) {
 
-        return newChunkedResponse(Response.Status.OK,
-                mResource.getImageFile(uri).getMimeType(),
-                mResource.getImage(uri));
+//        return newChunkedResponse(Response.Status.OK,
+//                mResource.getImageFile(uri).getMimeType(),
+//                mResource.getImage(uri));
+
+        try (InputStream is = mResource.getImage(uri)) {
+
+            int len = is.available();
+
+            return newFixedLengthResponse(Response.Status.OK,
+                    mResource.getImageFile(uri).getMimeType(),
+                    is,
+                    len);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return newFixedLengthResponse("Not Found!");
 
     }
 
     @API("/video/")
     private Response video(String uri) {
 
-        return newChunkedResponse(Response.Status.OK,
-                mResource.getVideoFile(uri).getMimeType(),
-                mResource.getVideo(uri));
+//        return newChunkedResponse(Response.Status.OK,
+//                mResource.getVideoFile(uri).getMimeType(),
+//                mResource.getVideo(uri));
+
+        try (InputStream is = mResource.getVideo(uri)) {
+
+            int len = is.available();
+
+            return newFixedLengthResponse(Response.Status.OK,
+                    mResource.getVideoFile(uri).getMimeType(),
+                    is,
+                    len);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return newFixedLengthResponse("Not Found!");
     }
 
     @API("/download/img/")
     private Response downloadImg(String uri) {
 
-        InputStream is = mResource.getImage(uri);
+        try (InputStream is = mResource.getImage(uri)) {
 
-        int len = 0;
+            int len = is.available();
 
-        try {
-            len = is.available();
+            return newFixedLengthResponse(Response.Status.OK,
+                    "application/octet-stream",
+                    is,
+                    len);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return newFixedLengthResponse(Response.Status.OK,
-                "application/octet-stream",
-                is,
-                len);
+        return newFixedLengthResponse("Not Found!");
 
     }
 
     @API("/download/video/")
     private Response downloadVideo(String uri) {
 
-        InputStream is = mResource.getVideo(uri);
+        try (InputStream is = mResource.getVideo(uri)) {
 
-        int len = 0;
+            int len = is.available();
 
-        try {
-            len = is.available();
+            return newFixedLengthResponse(Response.Status.OK,
+                    "application/octet-stream",
+                    is,
+                    len);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return newFixedLengthResponse(Response.Status.OK,
-                "application/octet-stream",
-                is,
-                len);
+        return newFixedLengthResponse("Not Found!");
     }
 
 
