@@ -7,7 +7,6 @@ import android.support.v4.util.ArrayMap;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
-import com.xdynamics.share.base.ResourceConfig;
 import com.xdynamics.share.p2p.server.res.bean.HtmlFile;
 import com.xdynamics.share.p2p.server.res.bean.IResourceFile;
 import com.xdynamics.share.p2p.server.res.bean.ImageFile;

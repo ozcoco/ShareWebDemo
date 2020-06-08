@@ -1,4 +1,4 @@
-package com.xdynamics.share.base;
+package com.xdynamics.share.p2p.server.res;
 
 import java.io.Serializable;
 
