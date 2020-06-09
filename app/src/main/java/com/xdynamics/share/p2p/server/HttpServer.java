@@ -114,11 +114,11 @@ public class HttpServer extends BaseServer {
     @API("/img/")
     private Response img(String uri) {
 
-//        return newChunkedResponse(Response.Status.OK,
-//                mResource.getImageFile(uri).getMimeType(),
-//                mResource.getImage(uri));
+        return newChunkedResponse(Response.Status.OK,
+                mResource.getImageFile(uri).getMimeType(),
+                mResource.getImage(uri));
 
-        try (InputStream is = mResource.getImage(uri)) {
+        /*try (InputStream is = mResource.getImage(uri)) {
 
             int len = is.available();
 
@@ -131,18 +131,18 @@ public class HttpServer extends BaseServer {
             e.printStackTrace();
         }
 
-        return newFixedLengthResponse("Not Found!");
+        return newFixedLengthResponse("Not Found!");*/
 
     }
 
     @API("/video/")
     private Response video(String uri) {
 
-//        return newChunkedResponse(Response.Status.OK,
-//                mResource.getVideoFile(uri).getMimeType(),
-//                mResource.getVideo(uri));
+        return newChunkedResponse(Response.Status.OK,
+                mResource.getVideoFile(uri).getMimeType(),
+                mResource.getVideo(uri));
 
-        try (InputStream is = mResource.getVideo(uri)) {
+        /*try (InputStream is = mResource.getVideo(uri)) {
 
             int len = is.available();
 
@@ -155,13 +155,19 @@ public class HttpServer extends BaseServer {
             e.printStackTrace();
         }
 
-        return newFixedLengthResponse("Not Found!");
+        return newFixedLengthResponse("Not Found!");*/
     }
 
     @API("/download/img/")
     private Response downloadImg(String uri) {
 
-        try (InputStream is = mResource.getImage(uri)) {
+//        return newChunkedResponse(Response.Status.OK,
+//                mResource.getImageFile(uri).getMimeType(),
+//                mResource.getImage(uri));
+
+        try {
+
+            InputStream is = mResource.getImage(uri);
 
             int len = is.available();
 
@@ -181,7 +187,13 @@ public class HttpServer extends BaseServer {
     @API("/download/video/")
     private Response downloadVideo(String uri) {
 
-        try (InputStream is = mResource.getVideo(uri)) {
+//        return newChunkedResponse(Response.Status.OK,
+//                mResource.getVideoFile(uri).getMimeType(),
+//                mResource.getVideo(uri));
+
+        try {
+
+            InputStream is = mResource.getVideo(uri);
 
             int len = is.available();
 
