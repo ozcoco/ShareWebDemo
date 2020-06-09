@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.util.Log;
 
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -37,9 +38,15 @@ public class App extends Application {
 
     private ServiceConnection mServiceConnection;
 
+    private static int count = 0;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Log.e(TAG, "---start---App--------> Count : " + count);
+
+        count++;
 
         Logger.addLogAdapter(new AndroidLogAdapter());
 
